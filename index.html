@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ahmad's Portfolio - Web Developer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      body {
+        background: linear-gradient(135deg, #000021 0%, #0a0a3e 100%);
+        color: white;
+        font-family: "Poppins", sans-serif;
+        overflow-x: hidden;
+      }
+      
+      /* Navigation */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 8%;
+        background: rgba(18, 18, 62, 0.95);
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      }
+      
+      .logo {
+        font-size: clamp(1.3rem, 3vw, 1.8rem);
+        font-weight: 700;
+        background: linear-gradient(135deg, #5757d0, #aa6be4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      .nav-links {
+        display: flex;
+        gap: clamp(1rem, 3vw, 2.5rem);
+        list-style: none;
+      }
+      
+      .nav-links li a {
+        color: white;
+        text-decoration: none;
+        font-size: clamp(0.9rem, 1.5vw, 1rem);
+        transition: all 0.3s ease;
+        position: relative;
+        padding: 0.5rem 0;
+      }
+      
+      .nav-links li a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #5757d0, #aa6be4);
+        transition: width 0.3s ease;
+      }
+      
+      .nav-links li a:hover::after {
+        width: 100%;
+      }
+      
+      .nav-links li a:hover {
+        color: #aa6be4;
+      }
+      
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        z-index: 1001;
+      }
+      
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background: white;
+        transition: all 0.3s ease;
+        border-radius: 3px;
+      }
+      
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+      }
+      
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+      }
+      
+      /* Hero Section */
+      .hero-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: calc(100vh - 80px);
+        padding: 4rem 8%;
+        gap: 4rem;
+      }
+      
+      .hero-content {
+        flex: 1;
+        max-width: 600px;
+      }
+      
+      .hero-content h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+        animation: fadeInUp 0.8s ease;
+      }
+      
+      .hero-content .highlight {
+        color: #aa6be4;
+        display: inline-block;
+      }
+      
+      .hero-content .typed-text {
+        color: #5757d0;
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+        min-height: 1.5em;
+        display: block;
+        margin-top: 1rem;
+      }
+      
+      .hero-image {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 1s ease;
+      }
+      
+      .hero-image svg {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        filter: drop-shadow(0 20px 60px rgba(87, 87, 208, 0.4));
+        animation: float 3s ease-in-out infinite;
+      }
+      
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+      }
+      
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      
+      /* Divider */
+      .divider {
+        margin: 4rem 8%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #5757d0, transparent);
+      }
+      
+      /* Work Experience Section */
+      .experience-section {
+        padding: 4rem 8%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      
+      .section-header {
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      
+      .section-subtitle {
+        color: #1695d5;
+        font-size: clamp(0.9rem, 2vw, 1rem);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 0.5rem;
+      }
+      
+      .section-title {
+        font-size: clamp(2rem, 4vw, 3rem);
+        color: #aa6be4;
+        margin-bottom: 4rem;
+      }
+      
+      /* Timeline */
+      .timeline {
+        position: relative;
+        padding: 2rem 0;
+      }
+      
+      .timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(180deg, #5757d0, #aa6be4);
+        border-radius: 4px;
+      }
+      
+      .timeline-item {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 50%;
+        position: relative;
+        margin-bottom: 3rem;
+      }
+      
+      .timeline-item:nth-child(even) {
+        justify-content: flex-start;
+        padding-right: 0;
+        padding-left: 50%;
+      }
+      
+      .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 20px;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 20px;
+        background: #aa6be4;
+        border: 4px solid #5757d0;
+        border-radius: 50%;
+        z-index: 1;
+        box-shadow: 0 0 20px rgba(170, 107, 228, 0.6);
+      }
+      
+      .timeline-content {
+        background: rgba(18, 18, 62, 0.8);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 12px;
+        width: calc(100% - 60px);
+        position: relative;
+        border: 1px solid rgba(87, 87, 208, 0.3);
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+      
+      .timeline-content:hover {
+        transform: translateY(-5px);
+        border-color: #5757d0;
+        box-shadow: 0 15px 40px rgba(87, 87, 208, 0.4);
+      }
+      
+      .timeline-item:nth-child(odd) .timeline-content::before {
+        content: '';
+        position: absolute;
+        right: -10px;
+        top: 20px;
+        width: 0;
+        height: 0;
+        border-left: 10px solid rgba(87, 87, 208, 0.3);
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+      }
+      
+      .timeline-item:nth-child(even) .timeline-content::before {
+        content: '';
+        position: absolute;
+        left: -10px;
+        top: 20px;
+        width: 0;
+        height: 0;
+        border-right: 10px solid rgba(87, 87, 208, 0.3);
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+      }
+      
+      .job-date {
+        color: #1695d5;
+        font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: inline-block;
+        background: rgba(22, 149, 213, 0.1);
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+      }
+      
+      .job-title {
+        color: #aa6be4;
+        font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+      
+      .job-company {
+        color: #5757d0;
+        font-size: clamp(1rem, 2vw, 1.1rem);
+        margin-bottom: 0.8rem;
+        font-weight: 500;
+      }
+      
+      .job-description {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: clamp(0.9rem, 1.5vw, 1rem);
+        line-height: 1.6;
+      }
+      
+      /* Tablet Styles */
+      @media (max-width: 1024px) {
+        nav {
+          padding: 1.5rem 5%;
+        }
+        
+        .hero-section,
+        .experience-section {
+          padding: 3rem 5%;
+        }
+        
+        .divider {
+          margin: 3rem 5%;
+        }
+      }
+      
+      /* Mobile Styles */
+      @media (max-width: 768px) {
+        .hamburger {
+          display: flex;
+        }
+        
+        .nav-links {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          height: 100vh;
+          width: 70%;
+          max-width: 300px;
+          background: rgba(18, 18, 62, 0.98);
+          backdrop-filter: blur(10px);
+          flex-direction: column;
+          padding: 6rem 2rem 2rem;
+          gap: 2rem;
+          transition: right 0.4s ease;
+          box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .nav-links.active {
+          right: 0;
+        }
+        
+        .nav-links li a {
+          font-size: 1.1rem;
+        }
+        
+        .hero-section {
+          flex-direction: column-reverse;
+          text-align: center;
+          padding: 2rem 5%;
+          gap: 2rem;
+        }
+        
+        .hero-content {
+          max-width: 100%;
+        }
+        
+        .hero-image svg {
+          max-width: 350px;
+        }
+        
+        .timeline::before {
+          left: 30px;
+        }
+        
+        .timeline-item {
+          padding-left: 80px;
+          padding-right: 0;
+          justify-content: flex-start;
+        }
+        
+        .timeline-item:nth-child(even) {
+          padding-left: 80px;
+          padding-right: 0;
+        }
+        
+        .timeline-item::before {
+          left: 30px;
+          transform: translateX(-50%);
+        }
+        
+        .timeline-content {
+          width: 100%;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::before,
+        .timeline-item:nth-child(even) .timeline-content::before {
+          left: -10px;
+          right: auto;
+          border-right: 10px solid rgba(87, 87, 208, 0.3);
+          border-left: none;
+        }
+      }
+      
+      /* Small Mobile */
+      @media (max-width: 480px) {
+        nav {
+          padding: 1rem 4%;
+        }
+        
+        .hero-section,
+        .experience-section {
+          padding: 2rem 4%;
+        }
+        
+        .hero-image svg {
+          max-width: 280px;
+        }
+        
+        .timeline {
+          padding: 1rem 0;
+        }
+        
+        .timeline-item {
+          padding-left: 60px;
+          margin-bottom: 2rem;
+        }
+        
+        .timeline-item:nth-child(even) {
+          padding-left: 60px;
+        }
+        
+        .timeline::before {
+          left: 20px;
+        }
+        
+        .timeline-item::before {
+          left: 20px;
+          width: 16px;
+          height: 16px;
+        }
+        
+        .timeline-content {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">Ahmad's Portfolio</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero-section" id="home">
+        <div class="hero-content">
+          <h1>
+            Hi, My name is <span class="highlight">Ahmad</span><br>
+            and I am a passionate
+          </h1>
+          <span class="typed-text" id="typedText"></span>
+        </div>
+        <div class="hero-image">
+          <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="80" y="280" width="240" height="15" rx="7" fill="#3a3a6e"/>
+            <rect x="90" y="295" width="10" height="80" fill="#2a2a5e"/>
+            <rect x="300" y="295" width="10" height="80" fill="#2a2a5e"/>
+            <rect x="180" y="260" width="40" height="20" fill="#3a3a6e"/>
+            <rect x="190" y="240" width="20" height="20" fill="#3a3a6e"/>
+            <rect x="130" y="130" width="140" height="110" rx="5" fill="#1a1a4e"/>
+            <rect x="140" y="140" width="120" height="85" fill="#0a0a2e"/>
+            <line x1="150" y1="155" x2="190" y2="155" stroke="#5757d0" stroke-width="2"/>
+            <line x1="155" y1="165" x2="200" y2="165" stroke="#aa6be4" stroke-width="2"/>
+            <line x1="155" y1="175" x2="180" y2="175" stroke="#5757d0" stroke-width="2"/>
+            <line x1="150" y1="185" x2="210" y2="185" stroke="#1695d5" stroke-width="2"/>
+            <line x1="155" y1="195" x2="195" y2="195" stroke="#aa6be4" stroke-width="2"/>
+            <line x1="155" y1="205" x2="175" y2="205" stroke="#5757d0" stroke-width="2"/>
+            <circle cx="200" cy="310" r="25" fill="#d4a574"/>
+            <rect x="175" y="335" width="50" height="40" rx="5" fill="#5757d0"/>
+            <rect x="145" y="345" width="30" height="12" rx="6" fill="#d4a574" transform="rotate(-20 160 351)"/>
+            <rect x="225" y="345" width="30" height="12" rx="6" fill="#d4a574" transform="rotate(20 240 351)"/>
+            <circle cx="150" cy="285" r="8" fill="#d4a574"/>
+            <circle cx="250" cy="285" r="8" fill="#d4a574"/>
+            <rect x="130" y="275" width="140" height="20" rx="3" fill="#3a3a6e"/>
+            <rect x="135" y="280" width="10" height="8" rx="2" fill="#2a2a5e"/>
+            <rect x="150" y="280" width="10" height="8" rx="2" fill="#2a2a5e"/>
+            <rect x="165" y="280" width="10" height="8" rx="2" fill="#2a2a5e"/>
+            <rect x="180" y="280" width="10" height="8" rx="2" fill="#2a2a5e"/>
+            <rect x="195" y="280" width="10" height="8" rx="2" fill="#2a2a5e"/>
+            <rect x="210" y="280" width="10" height="8" rx="2" fill="#2a2a5e"/>
+            <rect x="225" y="280" width="10" height="8" rx="2" fill="#2a2a5e"/>
+            <rect x="240" y="280" width="10" height="8" rx="2" fill="#2a2a5e"/>
+            <rect x="255" y="280" width="10" height="8" rx="2" fill="#2a2a5e"/>
+            <rect x="290" y="265" width="25" height="30" rx="3" fill="#aa6be4"/>
+            <ellipse cx="302.5" cy="265" rx="12.5" ry="4" fill="#8a4bc4"/>
+            <path d="M315 275 Q325 275 325 285 Q325 290 320 290" stroke="#aa6be4" stroke-width="3" fill="none"/>
+            <rect x="50" y="260" width="20" height="25" rx="3" fill="#aa6be4"/>
+            <circle cx="55" cy="250" r="8" fill="#1695d5"/>
+            <circle cx="65" cy="248" r="6" fill="#1695d5"/>
+            <circle cx="60" cy="255" r="7" fill="#1695d5"/>
+            <text x="80" y="100" font-family="monospace" font-size="24" fill="#5757d0" opacity="0.6">&lt;/&gt;</text>
+            <text x="310" y="180" font-family="monospace" font-size="20" fill="#aa6be4" opacity="0.6">{ }</text>
+            <text x="300" y="120" font-family="monospace" font-size="18" fill="#1695d5" opacity="0.6">CSS</text>
+            <text x="70" y="200" font-family="monospace" font-size="18" fill="#aa6be4" opacity="0.6">JS</text>
+          </svg>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <section class="experience-section" id="experience">
+        <div class="section-header">
+          <p class="section-subtitle">What I have done so far</p>
+          <h2 class="section-title">Work Experience</h2>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <span class="job-date">2010 - 2013</span>
+              <h3 class="job-title">HTML Developer</h3>
+              <h4 class="job-company">Fiverr</h4>
+              <p class="job-description">Built responsive websites and landing pages for clients worldwide using HTML, CSS, and JavaScript. Delivered 100+ successful projects.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <span class="job-date">2013 - 2014</span>
+              <h3 class="job-title">Node.js Developer</h3>
+              <h4 class="job-company">Facebook Login</h4>
+              <p class="job-description">Developed backend services and APIs using Node.js and Express framework for authentication systems. Improved login performance by 40%.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <span class="job-date">2014 - 2016</span>
+              <h3 class="job-title">HTML Developer</h3>
+              <h4 class="job-company">Instagram</h4>
+              <p class="job-description">Created interactive UI components and improved user experience for millions of users. Optimized feed rendering for better performance.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <span class="job-date">2016 - 2018</span>
+              <h3 class="job-title">HTML Developer</h3>
+              <h4 class="job-company">Twitter</h4>
+              <p class="job-description">Worked on front-end development and real-time features for the social media platform. Implemented tweet streaming functionality.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <span class="job-date">2018 - 2023</span>
+              <h3 class="job-title">HTML Developer</h3>
+              <h4 class="job-company">Facebook</h4>
+              <p class="job-description">Led front-end development projects and mentored junior developers on best practices. Managed a team of 5 developers.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <span class="job-date">2023 - Present</span>
+              <h3 class="job-title">Software Developer</h3>
+              <h4 class="job-company">YouTube</h4>
+              <p class="job-description">Currently working on video platform features and optimizing performance for global users. Implementing AI-powered recommendations.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>
+      // Typed.js initialization
+      new Typed('#typedText', {
+        strings: ['Web Developer', 'Graphic Designer', 'Marketing Specialist', 'Video Designer'],
+        typeSpeed: 55,
+        backSpeed: 30,
+        loop: true,
+        showCursor: true,
+        cursorChar: '|'
+      });
+
+      // Hamburger menu
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+      
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+      });
+
+      // Close menu when clicking on a link
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('active');
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('active');
+        }
+      });
+    </script>
+  </body>
+</html>
